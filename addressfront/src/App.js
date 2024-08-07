@@ -1,4 +1,3 @@
-import "./App.css";
 import PageContent from "./PageContent";
 
 function App() {
