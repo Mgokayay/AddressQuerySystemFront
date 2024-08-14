@@ -31,27 +31,42 @@ const ShowAddressPage = () => {
 
   return (
     <div className="flex flex-col h-[100vh] items-center justify-center gap-8">
-      <h2 className="font-bold text-2xl text-blue-900">Adresses</h2>
+      <h2 className="font-bold text-2xl text-blue-900">Addresses</h2>
       <div className="border-2 border-blue-900 rounded-md w-[50%] h-[50%] overflow-auto">
         {data.length === 0 ? (
           <div className="text-center py-4 text-gray-500">
             There is no data to show
           </div>
         ) : (
-          data?.map((address, index) => (
-            <div key={index} className="flex py-3 border-b-2">
-              <div className="border-r-2 w-[40%] text-center">
-                {address.province}
+          <>
+            <div className="flex py-2 border-b-2 bg-gray-200">
+              <div className="border-r-2 w-[30%] text-center font-semibold">
+                Province
               </div>
-              <div className="w-[40%] text-center">{address.district}</div>
-              <button
-                onClick={() => handleDelete(address.id)}
-                className="border-r-2 w-[20%] text-red-500"
-              >
-                Delete
-              </button>
+              <div className="w-[30%] text-center font-semibold">District</div>
+              <div className="w-[30%] text-center font-semibold">
+                Population
+              </div>
+
+              <div className="w-[10%] text-center font-semibold">Action</div>
             </div>
-          ))
+            {data.map((address, index) => (
+              <div key={index} className="flex py-3 border-b-2">
+                <div className="border-r-2 w-[30%] text-center">
+                  {address.province}
+                </div>
+                <div className="w-[30%] text-center">{address.district}</div>
+                <div className="w-[30%] text-center">{address.population}</div>
+
+                <button
+                  onClick={() => handleDelete(address.id)}
+                  className="border-r-2 w-[10%] text-red-500"
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+          </>
         )}
       </div>
 
