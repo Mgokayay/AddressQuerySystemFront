@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 const AddAddressPage = () => {
   const [province, setProvince] = useState("");
   const [district, setDistrict] = useState("");
+  const [population, setPopulation] = useState();
+
   const [statusMessage, setStatusMessage] = useState("");
 
   const handleProvinceChange = (event) => {
@@ -15,9 +17,17 @@ const AddAddressPage = () => {
     setDistrict(event.target.value);
   };
 
+  const handlePopulationChange = (event) => {
+    setPopulation(event.target.value);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = { province: province, district: district };
+    const data = {
+      province: province,
+      district: district,
+      population: population,
+    };
 
     try {
       const response = await axios.post(
@@ -27,8 +37,10 @@ const AddAddressPage = () => {
       setStatusMessage("Province and District successfully saved!");
       console.log("Province Response:", response.data);
     } catch (error) {
-      setStatusMessage("There was an error posting the data!");
-      console.error("There was an error posting the data!", error);
+      setStatusMessage(
+        error.response?.data?.message || "Province or District cannot be empty!"
+      );
+      console.error("Province or District cannot be empty!", error);
     }
   };
 
@@ -57,6 +69,16 @@ const AddAddressPage = () => {
               className="ml-2 border-2 rounded"
             />
           </div>
+          <div className="flex justify-between">
+            <h className="text-orange-500 font-medium">Population</h>
+            <input
+              type="text"
+              value={population}
+              onChange={handlePopulationChange}
+              className="ml-2 border-2 rounded"
+            />
+          </div>
+
           <div className="flex justify-center mt-2">
             <button
               type="submit"
